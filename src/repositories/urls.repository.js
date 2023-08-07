@@ -7,9 +7,17 @@ function createShorten(url, shortUrl, id) {
     `, [url, shortUrl, id])
 }
 
+function findUrlById(id) {
+    return db.query(`
+        SELECT id, "shortUrl", url 
+            FROM urls 
+            WHERE id = $1
+    `, [id]);
+}
+
 const urlsRepository ={
     createShorten,
-
+    findUrlById,
 }
 
 export default urlsRepository

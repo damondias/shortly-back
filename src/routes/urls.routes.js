@@ -6,9 +6,10 @@ import { postShorten } from "../controllers/urls.controllers.js";
 
 const urlsRouter = Router();
 
+urlsRouter.get("/urls/:id", getUrlById);
 
 urlsRouter.use(validateToken);
 
-urlsRouter.post("/urls/shorten", validateSchema(urlSchema), postShorten)
+urlsRouter.post("/urls/shorten", validateSchema(urlSchema), postShorten);
 
 export default urlsRouter;
