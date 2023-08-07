@@ -9,7 +9,7 @@ function createShorten(url, shortUrl, id) {
 
 function findUrlById(id) {
     return db.query(`
-        SELECT id, "shortUrl", url 
+        SELECT id, "shortUrl", url , "userId"
             FROM urls 
             WHERE id = $1 ;
     `, [id]);

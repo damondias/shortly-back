@@ -6,8 +6,8 @@ import usersRouter from "./users.routes.js";
 const router = Router();
 
 router.use(authRouter);
-router.use(urlsRouter);
 router.use(usersRouter);
+router.use(urlsRouter);
 
 router.get("/", (req,res)=> res.send("API Shortly"));
 
