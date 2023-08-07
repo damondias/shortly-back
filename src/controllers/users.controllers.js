@@ -3,7 +3,7 @@ export async function getUserById(req, res) {
     const { user } = res.locals;
 
     try {
-        if(id != user.id )  return res.sendStatus(401);
+        if(id != user.id )  return res.status(401).send({message: "O usuario do login não é o mesmo da requisição"});
 
         const {rows: [dataUserUrls]} = await usersRepository.getUrlsByUser(id);
         res.send(200).send(dataUserUrls);
