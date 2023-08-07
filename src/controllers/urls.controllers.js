@@ -48,12 +48,11 @@ export async function deleteShorten(req,res){
     const { id } = req.params;
     const { user } = res.locals;
 
-    
-
     try {
         const { rowCount: existingUrl, rows: [url]} = await urlsRepository.findUrlById(id);
         if(existingUrl === 0) return res.status(404).send({message: " A url não existe"});
 
+        console.log(url, user.id)
         if( url.userId !== user.id) return res.status(401).send({message: "Esse usuário não é autorizado a fazer essa ação"});
 
         await urlsRepository.deleteUrl(id);
