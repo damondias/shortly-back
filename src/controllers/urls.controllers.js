@@ -33,9 +33,10 @@ export async function getShortUrl(req,res) {
     const { shortUrl } = req.params;
 
     try {
-        const { rowCount: existingUrl, rows: [{id, url}]} = await urlsRepository.findUrlByShorten(shortUrl);
+        const { rowCount: existingUrl, rows: [dataShortenUrl]} = await urlsRepository.findUrlByShorten(shortUrl);
         if(existingUrl === 0) return res.status(404).send({message: " A url não existe"});
         
+        const {id, url} = dataShortenUrl;
         await urlsRepository.incrementUrlVisitCount(id);
         res.redirect(url); 
     } catch (error) {
@@ -49,7 +50,7 @@ export async function deleteShorten(req,res){
 
     try {
         const { rowCount: existingUrl, rows: [url]} = await urlsRepository.findUrlById(id);
-        if(existingUrl === 0) return res.status(404).send({message: " A url não existe"});
+        if(existingUrl === 0) return res.status(404).send({ existingUrl, url, message: " A url não existe"});
 
         if( url.userId !== user.id) return res.status(401).send({message: "Esse usuário não é autorizado a fazer essa ação"});
 
